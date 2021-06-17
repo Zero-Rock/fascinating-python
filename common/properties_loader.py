@@ -5,7 +5,7 @@ import tempfile
 
 class Properties:
 
-    def __init__(self, file_name):
+    def __init__(self, file_name: str):
         if not os.path.exists(file_name):
             raise ReferenceError('file "{}" not exit'.format(file_name))
         self.file_name = file_name
@@ -17,7 +17,7 @@ class Properties:
                     temp_str = line.split('=')
                     self.properties[temp_str[0].strip()] = temp_str[1].strip()
 
-    def has_key(self, key) -> bool:
+    def has_key(self, key: str) -> bool:
         return key in self.properties
 
     def get(self, key, default_value='') -> str:
@@ -25,12 +25,12 @@ class Properties:
             return self.properties[key]
         return default_value
 
-    def put(self, key, value):
+    def put(self, key: str, value: str) -> None:
         self.properties[key] = value
         Properties.replace_property(self.file_name, key + '=.*', key + '=' + value, True)
 
     @staticmethod
-    def replace_property(file_name, from_regex, to_str, append_on_not_exists=True):
+    def replace_property(file_name: str, from_regex: str, to_str: str, append_on_not_exists=True) -> None:
         if not os.path.exists(file_name):
             raise ReferenceError('file "{}" not exit'.format(file_name))
         temp_file = tempfile.TemporaryFile()
