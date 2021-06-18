@@ -88,9 +88,9 @@ class DDGroupRobot:
     def __init__(self, url: str, access_token: str, secret: str = None):
         """
         initialize DingTalk Robot
-        :param url: str 请求地址
+        :param url: str request url
         :param access_token: token
-        :param secret: 签名
+        :param secret: signature
         """
         self.url = url
         self.secret = secret
