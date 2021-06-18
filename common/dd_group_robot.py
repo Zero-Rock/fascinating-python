@@ -12,7 +12,7 @@ class DDGroupRobot:
     @staticmethod
     def sign(secret: str) -> dict:
         """
-        生成签名
+        generate signature
         :param secret:
         :return:
         """
@@ -27,7 +27,7 @@ class DDGroupRobot:
     @staticmethod
     def gen_at(at_mobiles: list = None) -> dict:
         """
-        判断是否atAll
+        judge whether atAll
         :param at_mobiles:
         :return:
         """
@@ -45,7 +45,7 @@ class DDGroupRobot:
     @staticmethod
     def gen_msg(msg_type: str, data: dict, at_mobiles: list = None) -> dict:
         """
-        整合钉钉消息
+        integrate DingTalk news
         :param msg_type:
         :param data:
         :param at_mobiles:
@@ -62,18 +62,18 @@ class DDGroupRobot:
 
     def check_sign(self):
         """
-        检查签名时间和当前时间
+        check signature time and current time
         :return:
         """
         if self.secret is not None:
             current_time = round(time.time() * 1000)
-            # 签名时间戳与请求调用时间误差不能超过1小时，为保险起见，相差大于50min时，更新签名
+            # The difference between the signature timestamp and the request call time cannot exceed 1 hour. To be safe, update the signature when the difference is greater than 50 min
             if (current_time - int(self.tokenDir.get('timestamp'))) > 3000000:
                 self.tokenDir.update(DDGroupRobot.sign(self.secret))
 
     def send_msg(self, body: dict) -> dict:
         """
-        发送消息，返回请求结果
+        send a message and return the request result
         :param body:
         :return:
         """
@@ -87,7 +87,7 @@ class DDGroupRobot:
 
     def __init__(self, url: str, access_token: str, secret: str = None):
         """
-        初始化钉钉机器人
+        initialize DingTalk Robot
         :param url: str 请求地址
         :param access_token: token
         :param secret: 签名
