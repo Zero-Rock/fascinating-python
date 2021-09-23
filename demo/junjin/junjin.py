@@ -15,7 +15,7 @@ class JunJin:
             JunJin.checkIn()
         else:
             print("今日已参与签到")
-        JunJin.draw()
+        JunJin.showhand()
 
     @staticmethod
     def request(method, url):
@@ -55,20 +55,26 @@ class JunJin:
 
     @staticmethod
     def draw():
-        count = JunJin.getOreCount()
+        count = 0
         (url, method) = getConfig('drawLottery')
+        res = JunJin.request(method, url)
+        data = res.get("data")
+        lottery_name = data.get("lottery_name")
+        lottery_id = data.get("lottery_id")
+        lottery_type = data.get("lottery_type")
+        if lottery_type == 1:
+            count = 66
+        print("抽奖ID：{}, 获得: {}".format(lottery_id, lottery_name))
+        return count
+
+    @staticmethod
+    def showhand():
+        count = JunJin.getOreCount()
         if count < 200:
             print("矿石数量不够了，明天再试哦")
         while count > 200:
             count = count - 200
-            res = JunJin.request(method, url)
-            data = res.get("data")
-            lottery_name = data.get("lottery_name")
-            lottery_id = data.get("lottery_id")
-            lottery_type = data.get("lottery_type")
-            if lottery_type == 1:
-                count = count + 66
-            print("抽奖ID：{}, 获得: {}".format(lottery_id, lottery_name))
+            count = count + JunJin.draw();
 
 
 JunJin()
