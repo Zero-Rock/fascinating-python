@@ -51,7 +51,8 @@ class JunJin:
         if res.get("err_no") != 0:
             raise Exception('签到：失败，{}'.format(res.get("err_msg")))
         else:
-            print("签到成功！当前积分：{}".format(res.get("data").get("sum_point")))
+            count = JunJin.draw()
+            print("签到成功！当前积分：{}".format(res.get("data").get("sum_point") + count))
 
     @staticmethod
     def draw():
@@ -74,7 +75,7 @@ class JunJin:
             print("矿石数量不够了，明天再试哦")
         while count > 200:
             count = count - 200
-            count = count + JunJin.draw();
+            count = count + JunJin.draw()
 
 
 JunJin()
