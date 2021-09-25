@@ -72,10 +72,12 @@ class JunJin:
     def showhand():
         count = JunJin.getOreCount()
         if count < 200:
-            print("矿石数量不够了，明天再试哦")
+            print("矿石数量不够了，明天再试哦, 剩余矿石: {}".format(count))
         while count > 200:
             count = count - 200
             count = count + JunJin.draw()
+        else:
+            print("矿石数量不够了，明天再试哦, 剩余矿石: {}".format(count))
 
 
 JunJin()
