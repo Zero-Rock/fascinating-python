@@ -15,7 +15,7 @@ class JunJin:
             JunJin.checkIn()
         else:
             print("今日已参与签到")
-        JunJin.showhand()
+        JunJin.showHand()
 
     @staticmethod
     def request(method, url):
@@ -69,10 +69,8 @@ class JunJin:
         return count
 
     @staticmethod
-    def showhand():
+    def showHand():
         count = JunJin.getOreCount()
-        if count < 200:
-            print("矿石数量不够了，明天再试哦, 剩余矿石: {}".format(count))
         while count > 200:
             count = count - 200
             count = count + JunJin.draw()
