@@ -51,8 +51,7 @@ class JunJin:
         if res.get("err_no") != 0:
             raise Exception('签到：失败，{}'.format(res.get("err_msg")))
         else:
-            count = JunJin.getOreCount()
-            print("签到成功！当前积分：{}".format(res.get("data").get("sum_point") + count))
+            print("签到成功！当前积分：{}".format(res.get("data").get("sum_point")))
             JunJin.draw()
 
     @staticmethod
