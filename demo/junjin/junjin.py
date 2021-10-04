@@ -4,8 +4,9 @@
 """
 from demo.junjin.config import getConfig
 from requests import get, post
+from os import getenv
 
-cookie = ''
+cookie = getenv('COOKIE')
 
 
 class JunJin:
