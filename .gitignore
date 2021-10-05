@@ -6,4 +6,4 @@ venv
 util_test
 .DS_Store
 .env
-log/*
+log/*.log
