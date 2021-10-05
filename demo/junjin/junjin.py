@@ -5,8 +5,14 @@
 from demo.junjin.config import getConfig
 from requests import get, post
 from os import getenv
+from time import strftime, localtime
 
 cookie = getenv('COOKIE')
+
+
+def log(logStr, level="info"):
+    timeStr = strftime("%Y-%m-%d %H:%M:%S", localtime())
+    print(f"{timeStr} [{level.upper()}] {logStr}")
 
 
 class JunJin:
@@ -15,7 +21,7 @@ class JunJin:
         if is_check_in is not True:
             JunJin.checkIn()
         else:
-            print("今日已参与签到")
+            log("今日已参与签到")
         JunJin.showHand()
 
     @staticmethod
@@ -52,7 +58,7 @@ class JunJin:
         if res.get("err_no") != 0:
             raise Exception('签到：失败，{}'.format(res.get("err_msg")))
         else:
-            print("签到成功！当前积分：{}".format(res.get("data").get("sum_point")))
+            log("签到成功！当前积分：{}".format(res.get("data").get("sum_point")))
             JunJin.draw()
 
     @staticmethod
@@ -66,7 +72,7 @@ class JunJin:
         lottery_type = data.get("lottery_type")
         if lottery_type == 1:
             count = 66
-        print("抽奖ID：{}, 获得: {}".format(lottery_id, lottery_name))
+        log("抽奖ID：{}, 获得: {}".format(lottery_id, lottery_name))
         return count
 
     @staticmethod
@@ -76,7 +82,7 @@ class JunJin:
             count = count - 200
             count = count + JunJin.draw()
         else:
-            print("矿石数量不够了，明天再试哦, 剩余矿石: {}".format(count))
+            log("矿石数量不够了，明天再试哦, 剩余矿石: {}".format(count))
 
 
 JunJin()
