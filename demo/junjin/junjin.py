@@ -43,7 +43,8 @@ def get_today_status():
     return res.get("data")
 
 
-def draw():
+def draw(is_free):
+    type = '免费抽奖' if is_free else '有偿抽奖'
     count = 0
     (url, method) = getConfig('drawLottery')
     res = request(method, url)
@@ -53,7 +54,7 @@ def draw():
     lottery_type = data.get("lottery_type")
     if lottery_type == 1:
         count = 66
-    log("抽奖ID：{}, 获得: {}".format(lottery_id, lottery_name))
+    log("【{}】抽奖ID：{}, 获得: {}".format(type, lottery_id, lottery_name))
     return count
 
 
@@ -61,17 +62,17 @@ def check_in():
     (url, method) = getConfig('checkIn')
     res = request(method, url)
     if res.get("err_no") != 0:
-        raise Exception('签到：失败，{}'.format(res.get("err_msg")))
+        raise Exception('【签到】失败!，{}'.format(res.get("err_msg")))
     else:
-        log("签到成功！当前积分：{}".format(res.get("data").get("sum_point")))
-        draw()
+        log("【签到】成功！当前矿石：{}".format(res.get("data").get("sum_point")))
+        draw('free')
 
 
 def get_ore_count():
     (url, method) = getConfig('oreCount')
     res = request(method, url)
     if res.get("err_no") != 0:
-        raise Exception('查询矿石数量：失败，{}'.format(res.get("err_msg")))
+        raise Exception('【查询矿石数量】失败，{}'.format(res.get("err_msg")))
 
     return res.get("data")
 
@@ -80,7 +81,7 @@ def show_hand():
     count = get_ore_count()
     while count > 200:
         count = count - 200
-        count = count + draw()
+        count = count + draw(False)
     else:
         log("矿石数量不够了，明天再试哦, 剩余矿石: {}".format(count))
 
