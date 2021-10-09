@@ -44,7 +44,7 @@ def get_today_status():
 
 
 def draw(is_free):
-    type = '免费抽奖' if is_free else '有偿抽奖'
+    action_type = '免费抽奖' if is_free else '有偿抽奖'
     count = 0
     (url, method) = getConfig('drawLottery')
     res = request(method, url)
@@ -54,7 +54,7 @@ def draw(is_free):
     lottery_type = data.get("lottery_type")
     if lottery_type == 1:
         count = 66
-    log("【{}】抽奖ID：{}, 获得: {}".format(type, lottery_id, lottery_name))
+    log("【{}】抽奖ID：{}, 获得: {}".format(action_type, lottery_id, lottery_name))
     return count
 
 
