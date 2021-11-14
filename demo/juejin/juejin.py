@@ -2,7 +2,7 @@
 @Author : Zero
 @Time   : 2021/9/22 18:58:24
 """
-from demo.junjin.config import getConfig
+from demo.juejin.config import getConfig
 from requests import get, post
 from os import getenv
 from time import strftime, localtime
