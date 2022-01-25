@@ -56,7 +56,7 @@ def draw(is_free):
     lottery_id = data.get("lottery_id")
     lottery_type = data.get("lottery_type")
     if lottery_type == 1:
-        lottery_count = re.findall("\d+", lottery_name)[0]
+        lottery_count = re.findall(r"\d+", lottery_name)[0]
         count = int(lottery_count)
     log("【{}】抽奖ID：{}, 获得: {}".format(action_type, lottery_id, lottery_name))
     return count
