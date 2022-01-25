@@ -2,10 +2,13 @@
 @Author : Zero
 @Time   : 2021/9/22 18:58:24
 """
-from demo.juejin.config import getConfig
-from requests import get, post
+import re
 from os import getenv
 from time import strftime, localtime
+
+from requests import get, post
+
+from demo.juejin.config import getConfig
 
 cookie = getenv('COOKIE')
 
@@ -53,7 +56,8 @@ def draw(is_free):
     lottery_id = data.get("lottery_id")
     lottery_type = data.get("lottery_type")
     if lottery_type == 1:
-        count = 66
+        lottery_count = re.findall("\d+", lottery_name)[0]
+        count = int(lottery_count)
     log("【{}】抽奖ID：{}, 获得: {}".format(action_type, lottery_id, lottery_name))
     return count
 
