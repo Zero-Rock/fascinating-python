@@ -28,7 +28,7 @@ API_MAP = {
 }
 
 
-def getConfig(key: str) -> tuple:
+def get_config(key: str) -> tuple:
     """
 
     :param key: 'todayStatus'

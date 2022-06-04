@@ -8,7 +8,7 @@ from time import strftime, localtime
 
 from requests import get, post
 
-from demo.juejin.config import getConfig
+from demo.juejin.config import get_config
 
 cookie = getenv('COOKIE')
 
@@ -38,7 +38,7 @@ def request(method: str, url: str) -> dict:
 
 
 def get_today_status() -> bool:
-    (url, method) = getConfig('todayStatus')
+    (url, method) = get_config('todayStatus')
     res = request(method, url)
     if res.get("err_no") != 0:
         raise Exception('查询今日签到状态：失败，{}'.format(res.get("err_msg")))
@@ -49,7 +49,7 @@ def get_today_status() -> bool:
 def draw(is_free: bool) -> int:
     action_type = '免费抽奖' if is_free else '有偿抽奖'
     count = 0
-    (url, method) = getConfig('drawLottery')
+    (url, method) = get_config('drawLottery')
     res = request(method, url)
     data = res.get("data")
     lottery_name = data.get("lottery_name")
@@ -63,7 +63,7 @@ def draw(is_free: bool) -> int:
 
 
 def check_in() -> None:
-    (url, method) = getConfig('checkIn')
+    (url, method) = get_config('checkIn')
     res = request(method, url)
     if res.get("err_no") != 0:
         raise Exception('【签到】失败!，{}'.format(res.get("err_msg")))
@@ -73,7 +73,7 @@ def check_in() -> None:
 
 
 def get_ore_count() -> int:
-    (url, method) = getConfig('oreCount')
+    (url, method) = get_config('oreCount')
     res = request(method, url)
     if res.get("err_no") != 0:
         raise Exception('【查询矿石数量】失败，{}'.format(res.get("err_msg")))
