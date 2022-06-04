@@ -28,6 +28,11 @@ API_MAP = {
 }
 
 
-def getConfig(key):
+def getConfig(key: str) -> tuple:
+    """
+
+    :param key: 'todayStatus'
+    :return:
+    """
     temp = API_MAP.get(key)
     return f"{BASE_URL}{temp.get('url')}", temp.get('method')

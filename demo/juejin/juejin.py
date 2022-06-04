@@ -28,7 +28,7 @@ class JunJin:
         show_hand()
 
 
-def request(method, url):
+def request(method: str, url: str) -> dict:
     fetch = get if method == 'get' else post
     headers = {
         'Cookie': cookie
@@ -37,7 +37,7 @@ def request(method, url):
     return res.json()
 
 
-def get_today_status():
+def get_today_status() -> bool:
     (url, method) = getConfig('todayStatus')
     res = request(method, url)
     if res.get("err_no") != 0:
@@ -46,7 +46,7 @@ def get_today_status():
     return res.get("data")
 
 
-def draw(is_free):
+def draw(is_free: bool) -> int:
     action_type = '免费抽奖' if is_free else '有偿抽奖'
     count = 0
     (url, method) = getConfig('drawLottery')
@@ -62,17 +62,17 @@ def draw(is_free):
     return count
 
 
-def check_in():
+def check_in() -> None:
     (url, method) = getConfig('checkIn')
     res = request(method, url)
     if res.get("err_no") != 0:
         raise Exception('【签到】失败!，{}'.format(res.get("err_msg")))
     else:
         log("【签到】成功！当前矿石：{}".format(res.get("data").get("sum_point")))
-        draw('free')
+        draw(True)
 
 
-def get_ore_count():
+def get_ore_count() -> int:
     (url, method) = getConfig('oreCount')
     res = request(method, url)
     if res.get("err_no") != 0:
@@ -81,7 +81,7 @@ def get_ore_count():
     return res.get("data")
 
 
-def show_hand():
+def show_hand() -> None:
     count = get_ore_count()
     while count > 200:
         count = count - 200
