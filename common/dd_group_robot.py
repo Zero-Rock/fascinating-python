@@ -68,7 +68,8 @@ class DDGroupRobot:
         """
         if self.secret is not None:
             current_time = round(time.time() * 1000)
-            # The difference between the signature timestamp and the request call time cannot exceed 1 hour. To be safe, update the signature when the difference is greater than 50 min
+            # The difference between the signature timestamp and the request call time cannot exceed 1 hour
+            # To be safe, update the signature when the difference is greater than 50 min
             if (current_time - int(self.tokenDir.get('timestamp'))) > 3000000:
                 self.tokenDir.update(DDGroupRobot.sign(self.secret))
 
